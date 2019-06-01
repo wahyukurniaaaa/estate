@@ -11,6 +11,9 @@ class Auth extends CI_Controller
 
     function index()
     {
+        if ($this->session->userdata('status') == "login") {
+            redirect(base_url("admin"));
+        }
         $this->load->view('auth/v_login');
     }
 
@@ -28,7 +31,7 @@ class Auth extends CI_Controller
             $nama_admin = $data->nama_admin ;
             $data_session = array(
                 'nama' => $username,
-                'nama_nama_admin' => $nama_admin,
+                'nama_admin' => $nama_admin,
                 'status' => "login"
             );
 
@@ -44,6 +47,6 @@ class Auth extends CI_Controller
     function logout()
     {
         $this->session->sess_destroy();
-        redirect(base_url('login'));
+        redirect(base_url('auth'));
     }
 }
