@@ -135,36 +135,36 @@
           </li>
           <li>
             <a href="<?= site_url('/contact_us') ?>">
-              <i class="fa fa-id-card-o"></i> <span>Contact Us</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-newspaper-o"></i> <span>Post</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-exchange"></i> <span>Highlight</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-home"></i> <span>House Type</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
+            <i class="fa fa-id-card-o"></i> <span>Contact Us</span>
+          </a>
+        </li>
+        <li>
+            <a href="<?= site_url('/post') ?>">
+            <i class="fa fa-newspaper-o"></i> <span>Post</span>
+          </a>
+        </li>
+        <li>
+            <a href="<?= site_url('/highlight') ?>">
+            <i class="fa fa-exchange"></i> <span>Highlight</span>
+          </a>
+        </li>
+        <li>
+            <a href="<?= site_url('/housetype') ?>">
+            <i class="fa fa-home"></i> <span>House Type</span>
+          </a>
+        </li>
+        <li>
+            <a href="<?= site_url('/maplocation') ?>">
               <i class="fa fa-map-marker"></i> <span>Map Location</span>
             </a>
           </li>
           <li>
             <a href="<?= site_url('/site_plan') ?>">
-              <i class="fa fa-map-o"></i> <span>Side Plan</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
+            <i class="fa fa-map-o"></i> <span>Side Plan</span>
+          </a>
+        </li>
+        <li>
+            <a href="<?= site_url('/slider') ?>">
               <i class="fa fa-microchip"></i> <span>Slider</span>
             </a>
           </li>
@@ -177,7 +177,7 @@
       </section>
       <!-- /.sidebar -->
     </aside>
-
+    
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <?= $output ?>
