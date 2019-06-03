@@ -3,59 +3,75 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class About_us extends CI_Controller
+class Post extends CI_Controller
 {
+    private $array_is_active = array(
+        '0'         => 'Non Active',
+        '1'         => 'Active',
+    );
+
+    private $cfg_header = array(
+            'Title',
+            'Post Date',
+            'Is Active',
+            'Post By',
+            'Image',
+
+    );
+
+    private $cfg_data = array(
+            'title',
+            'description',
+            'post_date',
+            'is_active',
+            'post_by',
+            'image',
+
+    );
+
     function __construct()
     {
         parent::__construct();
         if ($this->session->userdata('status') != "login") {
             redirect(base_url("auth"));
         }
-        $this->load->model('About_us_model');
+        $this->load->model('Post_model');
         $this->load->library('form_validation');
         $this->_init();
     }
     private function _init()
     {
         $this->output->set_template('lte');
+        $this->output->set_title("Post");
+
     }
     public function index()
     {
-        $this->output->set_title("About Us");
-        $this->update();
-        // echo "tess cuy";
-        // $q = urldecode($this->input->get('q', TRUE));
-        // $start = intval($this->input->get('start'));
+        $post = $this->Post_model->get_all();
         
-        // if ($q <> '') {
-        //     $config['base_url'] = base_url() . 'about_us/index.html?q=' . urlencode($q);
-        //     $config['first_url'] = base_url() . 'about_us/index.html?q=' . urlencode($q);
-        // } else {
-        //     $config['base_url'] = base_url() . 'about_us/index.html';
-        //     $config['first_url'] = base_url() . 'about_us/index.html';
+        // $i = 0;
+        // foreach ($post as $row) {
+        //     foreach ($this->cfg_data as $key => $val) {
+        //         if($val== 'is_active'){
+        //             $row->$val = 'active';
+        //         }
+        //         $record[$i][$val] = $row->$val;
+        //     }
+        //     $i++;
         // }
-
-        // $config['per_page'] = 10;
-        // $config['page_query_string'] = TRUE;
-        // $config['total_rows'] = $this->About_us_model->total_rows($q);
-        // $about_us = $this->About_us_model->get_limit_data($config['per_page'], $start, $q);
-
-        // $this->load->library('pagination');
-        // $this->pagination->initialize($config);
-
-        // $data = array(
-        //     'about_us_data' => $about_us,
-        //     'q' => $q,
-        //     'pagination' => $this->pagination->create_links(),
-        //     'total_rows' => $config['total_rows'],
-        //     'start' => $start,
-        // );
-        // $this->load->view('about_us/about_us_list', $data);
+        // print_r($record);
+        // die();
+        $data = array(
+            'header' => $this->cfg_header,
+            'record' => $post,
+            'controller' => 'post',
+        );
+        $this->load->view('admin/post/list_table',$data);
     }
 
     public function read($id) 
     {
-        $row = $this->About_us_model->get_by_id($id);
+        $row = $this->Post_model->get_by_id($id);
         if ($row) {
             $data = array(
 		'id_provinsi' => $row->id_provinsi,
@@ -64,67 +80,98 @@ class About_us extends CI_Controller
 		'thn2011' => $row->thn2011,
 		'thn2014' => $row->thn2014,
 	    );
-            $this->load->view('about_us/about_us_read', $data);
+            $this->load->view('post/post_read', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
-            redirect(site_url('about_us'));
+            redirect(site_url('post'));
         }
     }
 
     public function create() 
     {
         $data = array(
+            'module_title' =>'Post',
             'button' => 'Create',
-            'action' => site_url('about_us/create_action'),
-            'id_provinsi' => set_value('id_provinsi'),
-            'provinsi' => set_value('provinsi'),
-            'thn2008' => set_value('thn2008'),
-            'thn2011' => set_value('thn2011'),
-            'thn2014' => set_value('thn2014'),
-	);
-        $this->load->view('about_us/about_us_form', $data);
+            'action' => site_url( "post/create_action"),
+            'title' => set_value('title'),
+            'description' => set_value('description'),
+            'image' => set_value('image'),
+            'id_post' => set_value('id_post'),
+            'is_active' => set_value('is_active'),
+            'post_by' => set_value('post_by'),
+            'post_date' => set_value('post_date'),
+            'array_is_active' => $this->array_is_active,
+        );
+        $this->load->view('admin/post/post_form', $data);
     }
     
     public function create_action() 
     {
         $this->_rules();
-
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         } else {
-            $data = array(
-		'provinsi' => $this->input->post('provinsi',TRUE),
-		'thn2008' => $this->input->post('thn2008',TRUE),
-		'thn2011' => $this->input->post('thn2011',TRUE),
-		'thn2014' => $this->input->post('thn2014',TRUE),
-	    );
+            if (!isset($_FILES['image']) || $_FILES['image']['error'] == UPLOAD_ERR_NO_FILE) {
+                // nothing
+            } else {
+                $config['upload_path']          = './gambar/';
+                $config['allowed_types']        = 'gif|jpg|png';
+                $config['file_name']            = 'image_' . uniqid();
+                // $config['max_size']             = 100;
+                // $config['max_width']            = 1024;
+                // $config['max_height']           = 768;
 
-            $this->About_us_model->insert($data);
+                $this->load->library('upload', $config);
+                if (!$this->upload->do_upload('image')) {
+                    $error = $this->upload->display_errors();
+                    $this->session->set_flashdata('message_error', $error);
+                    redirect(site_url('post'));
+                } else {
+                    $data['image'] = $this->upload->data('file_name');
+                    // $upload_data = array('upload_data' => $this->upload->data());
+                }
+            }
+
+            $data['title'] = $this->input->post('title', TRUE);
+            $data['description'] = $this->input->post('description', TRUE);
+            $data['is_active'] = $this->input->post('is_active', TRUE);
+            $data['post_by'] = $this->session->userdata('nama_admin');
+            $data['post_date'] = date('Y-m-d', strtotime($this->input->post('post_date', TRUE)));
+
+            // $this->Post_model->update($this->input->post('id_provinsi', TRUE), $data);
+            $this->Post_model->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
-            redirect(site_url('about_us'));
+            redirect(site_url('post'));
         }
+
+            
     }
     
     // public function update($id) 
-    public function update() 
+    public function update($id) 
     {
-        $row = $this->About_us_model->get_all();
+        $row = $this->Post_model->get_by_id($id);
 
         if ($row) {
             // print_r($row);
             // die();
             $data = array(
+                'module_title' =>'Post',
                 'button' => 'Update',
-                'action' => site_url('about_us/update_action'),
+                'action' => site_url("post/update_action"),
 		'title' => set_value('title', $row->title),
 		'description' => set_value('description', $row->description),
 		'image' => set_value('image', $row->image),
-		'id_about' => set_value('id_about', $row->id_about),
+		'id_post' => set_value('id_post', $row->id_post),
+		'is_active' => set_value('is_active', $row->is_active),
+		'post_by' => set_value('post_by', $row->post_by),
+		'post_date' => set_value('post_date', date('d/m/Y',strtotime($row->post_date))),
+        'array_is_active' => $this->array_is_active,
 	    );
-            $this->load->view('admin/about_us_form', $data);
+            $this->load->view('admin/post/post_form', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
-            redirect(site_url('about_us'));
+            redirect(site_url('post'));
         }
     }
     
@@ -135,8 +182,9 @@ class About_us extends CI_Controller
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
-            // $this->update($this->input->post('id_provinsi', TRUE));
-            $this->update();
+            $id = $this->update($this->input->post( 'id_post', TRUE));
+            
+            $this->update($id);
         } else {
             if(!isset($_FILES['image']) || $_FILES['image']['error'] == UPLOAD_ERR_NO_FILE) {
                     // nothing
@@ -152,7 +200,7 @@ class About_us extends CI_Controller
                 if ( ! $this->upload->do_upload('image')){
                     $error = $this->upload->display_errors();
                     $this->session->set_flashdata('message_error', $error);
-                    redirect(site_url('about_us'));
+                    redirect(site_url('post'));
                 }else{
                     $data['image'] = $this->upload->data('file_name');
                     // $upload_data = array('upload_data' => $this->upload->data());
@@ -161,25 +209,27 @@ class About_us extends CI_Controller
 
             $data['title'] = $this->input->post('title',TRUE);
             $data['description'] = $this->input->post('description',TRUE);
+            $data['is_active'] = $this->input->post('is_active',TRUE);
+            $data['post_date'] = date('Y-m-d',strtotime($this->input->post('post_date', TRUE)));
 
-            // $this->About_us_model->update($this->input->post('id_provinsi', TRUE), $data);
-            $this->About_us_model->update($this->input->post('id_about', TRUE), $data);
+            // $this->Post_model->update($this->input->post('id_provinsi', TRUE), $data);
+            $this->Post_model->update($this->input->post('id_post', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
-            redirect(site_url('about_us'));
+            redirect(site_url('post'));
         }
     }
     
     public function delete($id) 
     {
-        $row = $this->About_us_model->get_by_id($id);
+        $row = $this->Post_model->get_by_id($id);
 
         if ($row) {
-            $this->About_us_model->delete($id);
+            $this->Post_model->delete($id);
             $this->session->set_flashdata('message', 'Delete Record Success');
-            redirect(site_url('about_us'));
+            redirect(site_url('post'));
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
-            redirect(site_url('about_us'));
+            redirect(site_url('post'));
         }
     }
 
@@ -194,8 +244,8 @@ class About_us extends CI_Controller
     public function excel()
     {
         $this->load->helper('exportexcel');
-        $namaFile = "about_us.xls";
-        $judul = "about_us";
+        $namaFile = "post.xls";
+        $judul = "post";
         $tablehead = 0;
         $tablebody = 1;
         $nourut = 1;
@@ -218,7 +268,7 @@ class About_us extends CI_Controller
 	xlsWriteLabel($tablehead, $kolomhead++, "Thn2011");
 	xlsWriteLabel($tablehead, $kolomhead++, "Thn2014");
 
-	foreach ($this->About_us_model->get_all() as $data) {
+	foreach ($this->Post_model->get_all() as $data) {
             $kolombody = 0;
 
             //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
@@ -239,20 +289,20 @@ class About_us extends CI_Controller
     public function word()
     {
         header("Content-type: application/vnd.ms-word");
-        header("Content-Disposition: attachment;Filename=about_us.doc");
+        header("Content-Disposition: attachment;Filename=post.doc");
 
         $data = array(
-            'about_us_data' => $this->About_us_model->get_all(),
+            'post_data' => $this->Post_model->get_all(),
             'start' => 0
         );
         
-        $this->load->view('about_us/about_us_doc',$data);
+        $this->load->view('post/post_doc',$data);
     }
 
 }
 
-/* End of file about_us.php */
-/* Location: ./application/controllers/about_us.php */
+/* End of file post.php */
+/* Location: ./application/controllers/post.php */
 /* Please DO NOT modify this information : */
 /* Generated by Harviacode Codeigniter CRUD Generator 2018-04-25 15:02:42 */
 /* http://harviacode.com */

@@ -32,7 +32,7 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="<?= base_url() ?>"><b>CGR</b>Admin</a>
+            <a href="<?= base_url() ?>"><b>CGO</b>Admin</a>
         </div>
         <!-- /.login-logo -->
         <?php
