@@ -28,6 +28,7 @@ class Post extends CI_Controller
             'image',
 
     );
+    
 
     function __construct()
     {
@@ -136,7 +137,8 @@ class Post extends CI_Controller
             $data['description'] = $this->input->post('description', TRUE);
             $data['is_active'] = $this->input->post('is_active', TRUE);
             $data['post_by'] = $this->session->userdata('nama_admin');
-            $data['post_date'] = date('Y-m-d', strtotime($this->input->post('post_date', TRUE)));
+            $data['post_date'] = $this->convert_date_sql($this->input->post('post_date', TRUE), 3);
+
 
             // $this->Post_model->update($this->input->post('id_provinsi', TRUE), $data);
             $this->Post_model->insert($data);
@@ -210,8 +212,8 @@ class Post extends CI_Controller
             $data['title'] = $this->input->post('title',TRUE);
             $data['description'] = $this->input->post('description',TRUE);
             $data['is_active'] = $this->input->post('is_active',TRUE);
-            $data['post_date'] = date('Y-m-d',strtotime($this->input->post('post_date', TRUE)));
-
+            // $data['post_date'] = date('Y-m-d',strtotime($this->input->post('post_date', TRUE)));
+            $data['post_date'] = $this->convert_date_sql( $this->input->post('post_date', TRUE),3);
             // $this->Post_model->update($this->input->post('id_provinsi', TRUE), $data);
             $this->Post_model->update($this->input->post('id_post', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
@@ -297,6 +299,38 @@ class Post extends CI_Controller
         );
         
         $this->load->view('post/post_doc',$data);
+    }
+
+    private function convert_date_sql($tanggal, $format = "1")
+    {
+        $tanggal_array = explode("/", $tanggal); //format 31/01/2013
+        $_tanggal_array = count($tanggal_array);
+        if ($format == '0') { //format 01/31/2013
+            if ($_tanggal_array > 1) {
+                $output = "'" . $tanggal_array[1] . "/" . $tanggal_array[0] . "/" . $tanggal_array[2] . "'";
+            } else {
+                $output = "NULL";
+            }
+        } elseif ($format == '1') { //format 2013-01-31
+            if ($_tanggal_array > 1) {
+                $output = "'" . $tanggal_array[2] . "-" . $tanggal_array[1] . "-" . $tanggal_array[0] . "'";
+            } else {
+                $output = "NULL";
+            }
+        } elseif ($format == '2') { //format 2013-31-01
+            if ($_tanggal_array > 1) {
+                $output = "'" . $tanggal_array[2] . "-" . $tanggal_array[0] . "-" . $tanggal_array[1] . "'";
+            } else {
+                $output = "NULL";
+            }
+        } elseif ($format == '3') { //format 2013-31-01
+            if ($_tanggal_array > 1) {
+                $output = "" . $tanggal_array[2] . "-" . $tanggal_array[1] . "-" . $tanggal_array[0] . "";
+            } else {
+                $output = "NULL";
+            }
+        }
+        return $output;
     }
 
 }

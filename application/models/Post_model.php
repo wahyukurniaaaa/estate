@@ -22,6 +22,14 @@ class Post_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
+    function get_top3()
+    {
+        $this->db->order_by($this->id, $this->order);
+        $this->db->limit(3,0);
+        $this->db->where('is_active', 1);
+        return $this->db->get($this->table)->result();
+    }
+
     function get_all_old()
     {
         $this->db->order_by($this->id, $this->order);

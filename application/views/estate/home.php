@@ -4,57 +4,28 @@
 
 ?><div class=swiper-container>
     <div class=swiper-wrapper>
-        <div class="slide-item swiper-slide" style="background-image:url(<?= base_url() ?>assets/themes/real_estate/img/bg/bg11.jpg)">
-            <div class=container>
-                <div class=row>
-                    <div class="center-holder col-md-12">
-                        <div class=slider-content>
-                            <div class="center-holder pre-title-center" data-swiper-parallax=-1500>Modern Houses</div>
-                            <div class=title-center data-swiper-parallax=-1500 data-swiper-opacity=5>DreamHouse
-                                <br>Architecture Studio</div>
-                            <div class=text-center data-swiper-parallax=-800>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dictum mattis velit, sit amet faucibus felis iaculis nec.
+        <?php
+        $a = 1;
+        foreach ($slider_data as $row) { ?>
+            <div class="slide-item swiper-slide" style="background-image:url(<?= (($row->image != '') ? base_url() . "gambar/" . $row->image : base_url() . "assets/themes/real_estate/img/bg/bg11.jpg") ?>)">
+                <div class=container>
+                    <div class=row>
+                        <div class="center-holder col-md-12">
+                            <div class=slider-content>
+                                <div class="center-holder pre-title-center" data-swiper-parallax=-1500><?= $row->type ?></div>
+                                <div class=title-center data-swiper-parallax=-1500 data-swiper-opacity=5><?= $row->title ?></div>
+                                <div class=text-center data-swiper-parallax=-800>
+                                    <p><?= $row->description ?>
+                                </div>
                             </div>
-                            <div class=mt-30><a href=# class="button-md dark-button">Read More</a></div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="slide-item swiper-slide" style="background-image:url(<?= base_url() ?>assets/themes/real_estate/img/bg/bg12.jpg)">
-            <div class=container>
-                <div class=row>
-                    <div class="center-holder col-md-12">
-                        <div class=slider-content>
-                            <div class="center-holder pre-title-center" data-swiper-parallax=-1500>Summer House</div>
-                            <div class=title-center data-swiper-parallax=-1500 data-swiper-opacity=5>Modern
-                                <br>Summer House</div>
-                            <div class=text-center data-swiper-parallax=-800>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dictum mattis velit, sit amet faucibus felis iaculis nec.
-                            </div>
-                            <div class=mt-30><a href=# class="button-md dark-button">Read More</a></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="slide-item swiper-slide" style="background-image:url(<?= base_url() ?>assets/themes/real_estate/img/bg/bg13.jpg)">
-            <div class=container>
-                <div class=row>
-                    <div class="center-holder col-md-12">
-                        <div class=slider-content>
-                            <div class="center-holder pre-title-center" data-swiper-parallax=-1500>Luxury houses</div>
-                            <div class=title-center data-swiper-parallax=-1500 data-swiper-opacity=5>Luxury
-                                <br>Residence here</div>
-                            <div class=text-center data-swiper-parallax=-800>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dictum mattis velit, sit amet faucibus felis iaculis nec.
-                            </div>
-                            <div class=mt-30><a href=# class="button-md dark-button">Read More</a></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <?php
+            $a++;
+        }
+        ?>
     </div>
     <div class="swiper-pagination swiper-pagination-white"></div>
     <div class="swiper-button-white swiper-button-next"></div>
@@ -82,48 +53,46 @@
 <div class=section-block>
     <div style=height:1500px id=particles-js></div>
     <div class=container>
-        <div class="row project-row" data-scrollax-parent=true>
-            <div class="col-xs-12 col-sm-7 col-md-7" data-scrollax="properties: { 'translateY': '-50px', 'opacity': 0.1 }">
-                <div class=outline-bordered-left><img alt=img src="<?= base_url() ?>assets/themes/real_estate/img/content/home-pr-2.jpg"></div>
-            </div>
-            <div class="col-xs-12 col-md-4 col-md-offset-1 col-sm-5" data-scrollax="properties: { 'translateY': '100px', 'opacity': 0 }">
-                <div class=project-title>
-                    <h3>01</h3>
-                    <h2>Luxury Summer House</h2>
+        <?php
+        $i = 1;
+        foreach ($highlight_data as $row) {
+            if ($i % 2) {  ?>
+                <div class="row project-row <?= (($i != '1' ? "mt-100" : "")) ?>" data-scrollax-parent=true>
+                    <div class="col-xs-12 col-sm-7 col-md-7" data-scrollax="properties: { 'translateY': '-50px', 'opacity': 0.1 }">
+                        <div class=outline-bordered-left><img alt=img src="<?= (($row->image != '') ? base_url() . "gambar/" . $row->image : base_url() . "assets/themes/real_estate/img/content/home-pr-2.jpg") ?>"></div>
+                    </div>
+                    <div class="col-xs-12 col-md-4 col-md-offset-1 col-sm-5" data-scrollax="properties: { 'translateY': '100px', 'opacity': 0 }">
+                        <div class=project-title>
+                            <h3><?= $i ?></h3>
+                            <h2><?= $row->title ?></h2>
+                        </div>
+                        <div class="mt-30 text-content">
+                            <p><?= $row->description ?>
+                        </div>
+                    </div>
                 </div>
-                <div class="mt-30 text-content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia magna vel molestie faucibus. Donec auctor et urnaLorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia magna vel molestie faucibus.
+            <?php
+        } else { ?>
+                <div class="row project-row mt-100" data-scrollax-parent=true>
+                    <div class="col-xs-12 col-sm-6 col-md-6" data-scrollax="properties: { 'translateY': '100px', 'opacity': 0.2 }">
+                        <div class=project-title>
+                            <h3><?= $i ?></h3>
+                            <h2><?= $row->title ?></h2>
+                        </div>
+                        <div class="mt-30 text-content">
+                            <p><?= $row->description ?>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6" data-scrollax="properties: { 'translateY': '-50px', 'opacity': 0 }">
+                        <div class=outline-bordered-right><img alt=img src="<?= (($row->image != '') ? base_url() . "gambar/" . $row->image : base_url() . "assets/themes/real_estate/img/content/home-pr-2.jpg") ?>"></div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="row project-row mt-100" data-scrollax-parent=true>
-            <div class="col-xs-12 col-sm-6 col-md-6" data-scrollax="properties: { 'translateY': '100px', 'opacity': 0.2 }">
-                <div class=project-title>
-                    <h3>02</h3>
-                    <h2>Flinders Street Station</h2>
-                </div>
-                <div class="mt-30 text-content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia magna vel molestie faucibus. Donec auctor et urnaLorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia magna vel molestie faucibus.
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6" data-scrollax="properties: { 'translateY': '-50px', 'opacity': 0 }">
-                <div class=outline-bordered-right><img alt=img src="<?= base_url() ?>assets/themes/real_estate/img/content/home-pr-1.jpg"></div>
-            </div>
-        </div>
-        <div class="row project-row mt-100" data-scrollax-parent=true>
-            <div class="col-xs-12 col-sm-7 col-md-7" data-scrollax="properties: { 'translateY': '-50px', 'opacity': 0 }">
-                <div class=outline-bordered-left><img alt=img src="<?= base_url() ?>assets/themes/real_estate/img/content/home-pr-4.jpg"></div>
-            </div>
-            <div class="col-xs-12 col-md-4 col-md-offset-1 col-sm-5" data-scrollax="properties: { 'translateY': '100px', 'opacity': 0.2 }">
-                <div class=project-title>
-                    <h3>03</h3>
-                    <h2>Milwaukee Summer House</h2>
-                </div>
-                <div class="mt-30 text-content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia magna vel molestie faucibus. Donec auctor et urnaLorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia magna vel molestie faucibus.
-                </div>
-            </div>
-        </div>
+            <?php
+        }
+        $i++;
+    }
+    ?>
+
     </div>
 </div>
 <div class="container section-block">
@@ -134,27 +103,23 @@
                 <h3>Fresh updates for you, read with detail.</h3>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-3 no-padding">
-            <div class="animated fadeInLeft wow blog-modern" data-wow-delay=0.1s>
-                <h3>Plant Trees While Searching The Web</h3><strong>Dec 04, 2017</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia magna vel molestie faucibus.
-                    <div class=blog-moder-button><a href=#>Read More</a></div>
+        <?php
+        $x = 1;
+        foreach ($post_data as $row) {
+            $date = date_create($row->post_date);
+            $date_post = date_format($date, 'jS F Y');
+            ?>
+            <div class="col-xs-12 col-sm-6 col-md-3 no-padding">
+                <div class="animated fadeInLeft wow blog-modern" data-wow-delay=0.1s>
+                    <h3><?= $row->title ?></h3><strong><?= $date_post ?></strong>
+                    <p><?= substr($row->description, 0, 100) ?></p>
+                        <div class=blog-moder-button><a href=#>Read More</a></div>
+                </div>
             </div>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-3 no-padding">
-            <div class="animated fadeInLeft wow blog-modern" data-wow-delay=0.2s>
-                <h3>Plant Trees While Searching The Web</h3><strong>Dec 04, 2017</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia magna vel molestie faucibus.
-                    <div class=blog-moder-button><a href=#>Read More</a></div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-3 no-padding">
-            <div class="animated fadeInLeft wow blog-modern" data-wow-delay=0.3s>
-                <h3>Plant Trees While Searching The Web</h3><strong>Dec 04, 2017</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia magna vel molestie faucibus.
-                    <div class=blog-moder-button><a href=#>Read More</a></div>
-            </div>
-        </div>
+            <?php
+            $x++;
+        }
+        ?>
     </div>
 </div>
 <footer>

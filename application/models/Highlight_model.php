@@ -8,7 +8,7 @@ class Highlight_model extends CI_Model
 
     public $table = 'tbl_highlight';
     public $id = 'id_highlight';
-    public $order = 'DESC';
+    public $order = 'ASC';
 
     function __construct()
     {

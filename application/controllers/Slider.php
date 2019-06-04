@@ -96,6 +96,7 @@ class Slider extends CI_Controller
             'description' => set_value('description'),
             'image' => set_value('image'),
             'id_slider' => set_value('id_slider'),
+            'type' => set_value('type'),
             // 'array_is_active' => $this->array_is_active,
         );
         $this->load->view('admin/slider/slider_form', $data);
@@ -129,6 +130,7 @@ class Slider extends CI_Controller
             }
 
             $data['title'] = $this->input->post('title', TRUE);
+            $data['type'] = $this->input->post('type', TRUE);
             $data['description'] = $this->input->post('description', TRUE);
 
             // $this->Slider_model->update($this->input->post('id_provinsi', TRUE), $data);
@@ -155,6 +157,7 @@ class Slider extends CI_Controller
 		'title' => set_value('title', $row->title),
 		'description' => set_value('description', $row->description),
 		'image' => set_value('image', $row->image),
+		'type' => set_value('type', $row->type),
 		'id_slider' => set_value('id_slider', $row->id_slider),
 	    );
             $this->load->view('admin/slider/slider_form', $data);
@@ -197,6 +200,8 @@ class Slider extends CI_Controller
             }
 
             $data['title'] = $this->input->post('title',TRUE);
+            $data['type'] = $this->input->post('type', TRUE);
+
             $data['description'] = $this->input->post('description',TRUE);
 
             // $this->Slider_model->update($this->input->post('id_provinsi', TRUE), $data);
@@ -224,6 +229,7 @@ class Slider extends CI_Controller
     {
 	$this->form_validation->set_rules('title', 'title', 'trim|required');
 	$this->form_validation->set_rules('description', 'description', 'trim|required');
+	$this->form_validation->set_rules('type', 'type', 'trim|required');
 
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
