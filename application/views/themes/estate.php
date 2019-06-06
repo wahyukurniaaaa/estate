@@ -33,23 +33,14 @@
                 </div>
                 <div class="collapse navbar-collapse" id=bs-example-navbar-collapse-1>
                     <ul class="nav navbar-links-custom navbar-nav navbar-right">
-                        <li><a href="#">home</a>
-                        <li><a href="#">blog</a>
-                        <li><a href="#">brousur</a>
-                        <li><a href="#">contact</a>
-                        <li><a href="#">peta lokasi</a>
-                        <li><a href="#">site plan</a>
-                        <li><a href="#">spesifikasi tehnik</a>
-                        <li><a href="#">tipe rumah</a>
-                        <li><a href="#">work in progres</a>
-                        <li class=search-holder><span class=search-button onclick=openNav()><i class="fa fa-search"aria-hidden=true></i></span></ul>
-                    <div class=search-overlay id=search_nav><a href=javascript:void(0) class=closebtn onclick=closeNav()>×</a>
-                        <div class=search-overlay-content>
-                            <form>
-                                <input placeholder="Search ...">
-                            </form>
-                        </div>
-                    </div>
+                        <li><a href="<?=site_url('frontend/index')?>">home</a>
+                        <li><a href="<?=site_url('frontend/blog')?>">blog</a>
+                        <li><a href="<?=site_url('frontend/contact')?>">contact</a>
+                        <li><a href="<?=site_url('frontend/map_location')?>">peta lokasi</a>
+                        <li><a href="<?=site_url('frontend/site_plan')?>">site plan</a>
+                        <li><a href="<?=site_url('frontend/specification')?>">spesifikasi tehnik</a>
+                        <li><a href="<?=site_url('frontend/house_type')?>">tipe rumah</a>
+                    </ul>
                 </div>
             </div>
         </div>
