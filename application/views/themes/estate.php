@@ -47,7 +47,64 @@
     </nav>
 </header>
 
-    	    <?php echo $output;?>
+            <?php echo $output;?>
+            
+
+<footer>
+    <div style=height:150px id=particles-js-footer></div>
+    <div class=container>
+        <div class=row>
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <a href=#><img alt=img src="<?= base_url() ?>assets/themes/real_estate/img/logos/logo-footer.png"></a>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia magna vel molestie faucibus.
+                    <p>© Copyright 2017 SpecThemes. All Rights reserved
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-2">
+                <div class=footer-title>
+                    <h2>Site Map</h2>
+                </div>
+                <ul>
+                        <li><a href="<?=site_url('frontend/index')?>">home</a>
+                        <li><a href="<?=site_url('frontend/blog')?>">blog</a>
+                        <li><a href="<?=site_url('frontend/contact')?>">contact</a>
+                        <li><a href="<?=site_url('frontend/map_location')?>">peta lokasi</a>
+                        <li><a href="<?=site_url('frontend/site_plan')?>">site plan</a>
+                        <li><a href="<?=site_url('frontend/specification')?>">spesifikasi tehnik</a>
+                        <li><a href="<?=site_url('frontend/house_type')?>">tipe rumah</a>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-2">
+                <div class=footer-title>
+                    <h2>Contact Us</h2>
+                </div>
+                <ul>
+                    <li>Call Us
+                    <li>+1 23-456-789
+                    <li>
+                    <li>Mail Us
+                    <li>specthemes@gmail.com
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-2">
+                <div class=footer-title>
+                    <h2>Visit Us</h2>
+                </div>
+                <ul>
+                    <li>Our Location
+                    <li>113, New York, NY Sheram 113 254
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-2">
+                <div class=footer-title>
+                    <h2>Search, Social Links</h2>
+                </div>
+                <form>
+                    <input placeholder="Search ..." name=s>
+                </form>
+                <div class="center-holder mt-50"><a href=#><i class="fa fa-facebook"></i></a> <a href=#><i class="fa fa-instagram"></i></a> <a href=#><i class="fa fa-twitter"></i></a> <a href=#><i class="fa fa-youtube"></i></a></div>
+            </div>
+        </div>
+    </div>
 </footer><a href=# class=scroll-to-top><i class="fa fa-angle-up"aria-hidden=true></i></a>
 <script src="<?=base_url()?>assets/themes/real_estate/js/jquery.min.js"></script>
 <script src="<?=base_url()?>assets/themes/real_estate/js/bootstrap.min.js"></script>
