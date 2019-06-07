@@ -96,6 +96,7 @@ class Housetype extends CI_Controller
             'type' => set_value('type'),
             'description' => set_value('description'),
             'image' => set_value('image'),
+            'title' => set_value('title'),
             $this->Housetype_model->id => set_value($this->Housetype_model->id),
             // 'array_is_active' => $this->array_is_active,
         );
@@ -130,6 +131,7 @@ class Housetype extends CI_Controller
             }
 
             $data['type'] = $this->input->post('type', TRUE);
+            $data['title'] = $this->input->post('title', TRUE);
             $data['description'] = $this->input->post('description', TRUE);
 
             // $this->Housetype_model->update($this->input->post('id_provinsi', TRUE), $data);
@@ -156,6 +158,7 @@ class Housetype extends CI_Controller
 		'type' => set_value('type', $row->type),
 		'description' => set_value('description', $row->description),
 		'image' => set_value('image', $row->image),
+		'title' => set_value('title', $row->title),
         'id_type' => set_value('id_type', $row->id_type),
         // 'primary_key'=> set_value($this->Housetype_model->id,$row->$this->Housetype_model->id),
 
@@ -200,6 +203,7 @@ class Housetype extends CI_Controller
             }
 
             $data['type'] = $this->input->post('type',TRUE);
+            $data['title'] = $this->input->post('title',TRUE);
             $data['description'] = $this->input->post('description',TRUE);
 
             // $this->Housetype_model->update($this->input->post('id_provinsi', TRUE), $data);
@@ -226,6 +230,7 @@ class Housetype extends CI_Controller
     public function _rules() 
     {
 	$this->form_validation->set_rules('type', 'type', 'trim|required');
+	$this->form_validation->set_rules('title', 'title', 'trim|required');
 	$this->form_validation->set_rules('description', 'description', 'trim|required');
 
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');

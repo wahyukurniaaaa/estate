@@ -22,6 +22,11 @@ class Slider_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
+    function jumlah_row()
+    {
+        return $this->db->get($this->table)->num_rows();
+    }   
+
     function get_all_old()
     {
         $this->db->order_by($this->id, $this->order);

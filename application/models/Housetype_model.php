@@ -28,6 +28,11 @@ class Housetype_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
+    function jumlah_row()
+    {
+        return $this->db->get($this->table)->num_rows();
+    }
+
     // get data by id
     function get_by_id($id)
     {

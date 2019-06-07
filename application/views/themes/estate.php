@@ -94,15 +94,6 @@
                     <li>113, New York, NY Sheram 113 254
                 </ul>
             </div>
-            <div class="col-xs-12 col-sm-4 col-md-2">
-                <div class=footer-title>
-                    <h2>Search, Social Links</h2>
-                </div>
-                <form>
-                    <input placeholder="Search ..." name=s>
-                </form>
-                <div class="center-holder mt-50"><a href=#><i class="fa fa-facebook"></i></a> <a href=#><i class="fa fa-instagram"></i></a> <a href=#><i class="fa fa-twitter"></i></a> <a href=#><i class="fa fa-youtube"></i></a></div>
-            </div>
         </div>
     </div>
 </footer><a href=# class=scroll-to-top><i class="fa fa-angle-up"aria-hidden=true></i></a>

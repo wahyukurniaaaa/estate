@@ -6,4 +6,9 @@ class Login_model extends CI_Model
     {
         return $this->db->get_where($table, $where);
     }
+
+    function jumlah_row()
+    {
+        return $this->db->get("tbl_admin")->num_rows();
+    }
 }

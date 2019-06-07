@@ -113,7 +113,7 @@
                 <div class="animated fadeInLeft wow blog-modern" data-wow-delay=0.1s>
                     <h3><?= $row->title ?></h3><strong><?= $date_post ?></strong>
                     <p><?= substr($row->description, 0, 100) ?></p>
-                        <div class=blog-moder-button><a href=#>Read More</a></div>
+                        <div class=blog-moder-button><?=anchor(site_url("frontend/blog_detail/" . $row->id_post), 'Read More', " ");?></div>
                 </div>
             </div>
             <?php

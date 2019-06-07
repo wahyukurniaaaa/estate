@@ -41,10 +41,15 @@
         <!-- form start -->
         <?= form_open_multipart($action, '', array("id_type" => $id_type)) ?>
         <div class="box-body">
-          <div class="form-group <?= ((form_error('title')) ? "has-error" : "") ?>">
+          <div class="form-group <?= ((form_error('type')) ? "has-error" : "") ?>">
             <label for="exampleInputEmail1">Type</label>
             <input type="text" class="form-control" name="type" id="exampleInputEmail1" placeholder="Enter type Here" value="<?= $type ?>" />
             <?php echo form_error('type'); ?>
+          </div>
+          <div class="form-group <?= ((form_error('title')) ? "has-error" : "") ?>">
+            <label for="exampleInputEmail1">Type</label>
+            <input type="text" class="form-control" name="title" id="exampleInputEmail1" placeholder="Enter title Here" value="<?= $title ?>" />
+            <?php echo form_error('title'); ?>
           </div>
           <div class="form-group <?= ((form_error('description')) ? "has-error" : "") ?>">
             <label for="exampleInputPassword1">Description</label>

@@ -9,8 +9,6 @@
         <div class=blog-post>
             <div class=row>
                 <div class="col-xs-12 col-md-12 col-sm-12">
-                    <div class=blog-heading>
-                        <h3><?=$contact_data->title?></h3></div>
                         <?=$contact_data->description?>
                 </div>
             </div>

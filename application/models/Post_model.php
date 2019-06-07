@@ -49,6 +49,11 @@ class Post_model extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
+
+    function jumlah_row()
+    {
+        return $this->db->get( $this->table)->num_rows();
+    }
     
     // get total rows
     function total_rows($q = NULL) {

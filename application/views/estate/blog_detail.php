@@ -2,7 +2,7 @@
     <div id=particles-js-pagetitle></div>
     <div class=container>
         <h1>Blog Post</h1>
-        <h6>Dream House</h6></div>
+    </div>
 </div>
 <div class=section-block>
     <div class=container>
